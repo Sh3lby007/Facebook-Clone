@@ -1,9 +1,13 @@
 import { Avatar } from "@mui/material";
-import React from "react";
+import React, { useState } from "react";
 import "./PostSender.css";
 import { InsertEmoticon, PhotoLibrary, Videocam } from "@mui/icons-material";
 
 function PostSender() {
+  // used for main post
+  const [input, setInput] = useState("");
+  // used for image url
+  const [imageUrl, setImageUrl] = useState("");
   /**
    * In Ts, when we use an event in a handler function, we need to provide a type for the event parameter.
    * This is bcause the etype of the event can vary depending on the element that triggered the event.
@@ -17,6 +21,9 @@ function PostSender() {
   const handleSubmit = (e: React.MouseEvent<HTMLButtonElement>) => {
     // To prevent refreshing the page
     e.preventDefault();
+
+    setInput("");
+    setImageUrl("");
   };
   return (
     <div className="postSender">
@@ -24,12 +31,20 @@ function PostSender() {
         <Avatar />
 
         <form>
+          {/* onChange will fire off the event when user type in. */}
           <input
+            value={input}
+            onChange={(e) => setInput(e.target.value)}
             className="postSender_input"
             type="text"
             placeholder="What's on your mind?"
           />
-          <input placeholder="image URL (Optional)" />
+
+          <input
+            value={imageUrl}
+            onChange={(e) => setImageUrl(e.target.value)}
+            placeholder="image URL (Optional)"
+          />
           <button onClick={handleSubmit} type="submit">
             Hidden Submit
           </button>
