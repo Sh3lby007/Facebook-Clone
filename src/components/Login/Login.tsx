@@ -1,13 +1,29 @@
 import { Button } from "@mui/material";
 import "./Login.css";
-import { auth, signInWithGoogle } from "../../firebase";
+import { auth, provider } from "../../firebase";
+import { signInWithPopup } from "firebase/auth";
+import { FirebaseError } from "firebase/app";
 
 function Login() {
   const signIn = async () => {
     try {
-      await auth.signInWithGoogle;
+      /**
+       * signInWithPopup is a method of the 'Auth' object that initiates Google
+       * sign-in flow and returns a promise that resolves with an object containing
+       * user information upon successful authenticatio.
+       */
+      const result = await signInWithPopup(auth, provider);
+      console.log(result.user);
     } catch (error) {
-      console.error(error);
+      // If user closes the google sign in, log a message instead of an error in console.
+      if (
+        error instanceof FirebaseError &&
+        error.code === "auth/popup-closed-by-user"
+      ) {
+        console.log("User closed the sign-in popup");
+      } else {
+        console.error(error);
+      }
     }
   };
 
