@@ -1,6 +1,5 @@
 import { SvgIconComponent } from "@mui/icons-material";
 import { Avatar } from "@mui/material";
-import React from "react";
 import "./SidebarRow.css";
 
 // In the Sidebar component, src and Icon might not always be present, therefore they have a undefined type
